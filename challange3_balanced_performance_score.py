@@ -1,16 +1,29 @@
 def medianoftwo(scoreA, scoreB):
-    if len(scoreA) % 2 != 0:
-        medianA = scoreA[len(scoreA) // 2]
-    else:
-        medianA = (scoreA[len(scoreA) // 2] + scoreA[len(scoreA) // 2 - 1]) / 2
+    i = j = 0
+    m, n = len(scoreA), len(scoreB)
+    total = m + n
+    mid1 = total // 2
+    mid2 = mid1 - 1
     
 
-    if len(scoreB) % 2 != 0:
-        medianB = scoreB[len(scoreB) // 2]
-    else:
-        medianB = (scoreB[len(scoreB) // 2] + scoreB[len(scoreB) // 2 - 1]) / 2
+    count = 0
+    prev = curr = 0
+
+    while count <= mid1:
+        prev = curr
+
+        if i < m and (j >= n or scoreA[i] <= scoreB[j]):
+            curr = scoreA[i]
+            i += 1
+        else:
+            curr = scoreB[j]
+            j += 1
+        count += 1
     
-    return (medianA + medianB) / 2
+    if total % 2 == 1:
+        return float(curr)
+    else:
+        return(prev + curr) / 2
 
 print("Input:")
 scoreA = list(map(int, input().split(',')))
